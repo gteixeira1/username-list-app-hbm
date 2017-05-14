@@ -11,6 +11,7 @@ Otherwise, the application generate a list with some valid usernames suggestions
   - Maven 3.3.9
   - SpringBoot 1.5.3.RELEASE
   - H2 Embedded Database
+  - Hibernate 
 
 ### Business Rules
   - If the username is valid, the application returns a success Boolean result with empty list of suggested usernames;
@@ -33,7 +34,7 @@ Then, to start the application, you just need to run java -jar command:
 ```sh
 java -jar target/username-list-app-0.0.1-SNAPSHOT.jar
 ```
-The application was configured to use H2 Embedded database. So, at the application start, the spring will automatically generate the database DDL structure executing the script *'src/main/resources/schema.sql'*. After executing this script, spring will load data inside the created tables executing the second script *'src/main/resources/data.sql'*.
+The application was configured to use H2 Embedded database. The hibernate has default configuration to create the table structure at startup (hibernate.hbm2ddl.auto). So, at the application start, the hibernate will automatically generate the database DDL structure based on table definitions on RestrictedWords.hbm.xml and Username.hbm.xml. After creating table structure, hibernate will load data inside the created tables executing the script *'src/main/resources/import.sql'*.
 Also, the H2 Client Console is available when the application is runnnig. To access the H2 Client, just access the address: [http://localhost:8080/h2-console](localhost:8080/h2-console)
 To log in on H2 Client, use bellow parameters:
 - Driver Class: org.h2.Driver
