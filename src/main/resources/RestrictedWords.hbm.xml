@@ -4,13 +4,13 @@
         "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
 
 <hibernate-mapping>
-    <class name="Username" table="USERNAME">
+    <class name="com.intertec.domain.entity.RestrictedWords" table="RESTRICTEDWORDS">
         <meta attribute="class-description">
-            This class contains the username detail.
+            This class contains the restricted words detail.
         </meta>
         <id name="id" type="int" column="id">
             <generator class="native"/>
         </id>
-        <property name="username" column="USERNAME" type="string"/>
+        <property name="word" column="WORD" type="string"/>
     </class>
 </hibernate-mapping>

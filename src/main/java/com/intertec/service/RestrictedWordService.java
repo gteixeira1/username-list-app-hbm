@@ -18,7 +18,7 @@ public class RestrictedWordService {
 
     public int saveRestrictedWord(List<String> restrictedWordList){
         LOG.info("Starting restricted word insertion");
-        int result = restrictedWordRepository.insertRestricedWordList(restrictedWordList);
+        int result = restrictedWordRepository.insertRestricedWord(restrictedWordList);
         return result;
     }
 }

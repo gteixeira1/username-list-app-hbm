@@ -26,7 +26,7 @@ public class RestrictedWordServiceTest {
 
     @Before
     public void setUp() throws Exception {
-        when(restrictedWordRepository.insertRestricedWordList(anyList())).thenReturn(1);
+        when(restrictedWordRepository.insertRestricedWord(anyList())).thenReturn(1);
         restrictedWordList = new ArrayList<String>();
         restrictedWordList.add("word");
     }
