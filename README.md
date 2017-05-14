@@ -41,6 +41,34 @@ To log in on H2 Client, use bellow parameters:
 - User name: sa
 - Password: 
 
+The application also allow insert new restricted words if necessary.
+
+### Application Endpoints
+##### Validate Username
+- Endpoint which get the username from and validated it
+- URL: http://localhost:8080/username-list-app/v1/validate-username?username=TestUsername
+- Method: GET
+- URI Parameters: username (required)
+
+###### Sample Tests Endpoints
+```sh
+http://localhost:8080/username-list-app/v1/validate-username?username=TestUsername
+http://localhost:8080/username-list-app/v1/validate-username?username=MrJohn99
+http://localhost:8080/username-list-app/v1/validate-username?username=Mrgrass1
+http://localhost:8080/username-list-app/v1/validate-username?username=test
+```
+
+##### Insert Restricted Word
+- Endpoint to insert a new restricted word 
+- URL: http://localhost:8080/username-list-app/v1/restricted-word
+- Method: POST
+- Required JSON Input: List of String
+###### Sample Test Data
+
+```sh
+[ "restrictedword1", "restrictedword2" ]
+```
+
 ### Application Performance
 It was considered a few number of records of username and restricted words to implement this application. For this reason, it loads in memory all records from each table (USERNAME_LIST and RESTRICTED_WORDS). Thinking in the future, having a thousand of usernames and restricted words, this approach is not the best due a memory consumption. To solve this, we can consider change the methods *'generateValidUsernameList'* and *'generateRandomUsernameList'* to search into the database if the username already exists:
 ```sh
