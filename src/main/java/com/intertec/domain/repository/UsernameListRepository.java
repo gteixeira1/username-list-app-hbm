@@ -2,6 +2,8 @@ package com.intertec.domain.repository;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -14,19 +16,28 @@ public class UsernameListRepository {
     private static final Log LOG = LogFactory.getLog(UsernameListRepository.class);
 
     @Autowired
-    private JdbcTemplate jdbcTemplate;
+    private H2SessionFactory h2SessionFactory;
+    private Session session;
 
     public List<String> getAllUsernameList(){
-        String select = "SELECT USERNAME FROM USERNAME_LIST";
-        List<String> result = jdbcTemplate.queryForList(select, String.class);
-
+        session = h2SessionFactory.getFactory().openSession();
+        Transaction tx = session.beginTransaction();
+        String select = "SELECT username FROM Username";
+        LOG.info(String.format("Executing query: %s", select));
+        List<String> result = session.createQuery(select).list();
+        tx.commit();
+        session.close();
         return result;
     }
 
     public List<String> findByUsername(String username){
-        String select = String.format("SELECT USERNAME FROM USERNAME_LIST WHERE USERNAME = ?");
-        List<String> result = jdbcTemplate.queryForList(select, String.class, username);
-
+        session = h2SessionFactory.getFactory().openSession();
+        Transaction tx = session.beginTransaction();
+        String select = String.format("SELECT username FROM Username WHERE Username = ?", username);
+        LOG.info(String.format("Trying to find username: %s", username));
+        List<String> result = session.createQuery(select).list();
+        tx.commit();
+        session.close();
         return result;
     }
 }

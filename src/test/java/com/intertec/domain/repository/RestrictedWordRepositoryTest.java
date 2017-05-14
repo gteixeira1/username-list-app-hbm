@@ -43,7 +43,6 @@ public class RestrictedWordRepositoryTest {
     private final String invalidWord = "invalid";
     private final String selectAll = "SELECT word FROM RestrictedWords";
     private final String selectByWord = "SELECT word FROM RestrictedWords WHERE WORD = ?";
-    private final String insertRestrictedWord = "INSERT INTO RestrictedWords (WORD) VALUES (?)";;
 
     @Before
     public void setUp() throws Exception {
@@ -70,7 +69,7 @@ public class RestrictedWordRepositoryTest {
 
     @Test
     public void shouldReturnUserNameList_WhenUserExistOnDatabase() throws Exception {
-        when(session.createQuery(anyString()).list()).thenReturn(dbList);
+        when(session.createQuery(String.format(selectByWord, validWord)).list()).thenReturn(dbList);
         List<String> result = restrictedWordRepository.findRestrictedWordByWord(validWord);
         assertTrue(result.size() == 1);
     }
