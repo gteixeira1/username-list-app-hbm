@@ -5,7 +5,6 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
-import org.hibernate.criterion.Projections;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -19,9 +18,6 @@ public class RestrictedWordRepository {
     @Autowired
     private H2SessionFactory h2SessionFactory;
     private Session session;
-
-//    @Autowired
-//    private JdbcTemplate jdbcTemplate;
 
     public List<String> getAllRestrictedWords(){
         session = h2SessionFactory.getFactory().openSession();
@@ -37,9 +33,9 @@ public class RestrictedWordRepository {
     public List<String> findRestrictedWordByWord(String word){
         session = h2SessionFactory.getFactory().openSession();
         Transaction tx = session.beginTransaction();
+        String select = String.format("SELECT word FROM RestrictedWords WHERE word = ?", word);
         LOG.info(String.format("Trying to find word: %s", word));
-        List<String> result = session.createCriteria(RestrictedWords.class)
-                .setProjection(Projections.property("word")).list();
+        List<String> result = session.createQuery(select).list();
         tx.commit();
         session.close();
         return result;

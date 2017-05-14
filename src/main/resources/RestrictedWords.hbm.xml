@@ -4,7 +4,7 @@
         "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
 
 <hibernate-mapping>
-    <class name="com.intertec.domain.entity.RestrictedWords" table="RESTRICTEDWORDS">
+    <class name="com.intertec.domain.entity.RestrictedWords" table="RESTRICTED_WORDS">
         <meta attribute="class-description">
             This class contains the restricted words detail.
         </meta>
